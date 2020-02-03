@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "377568416268",
+    "firebase_url": "https://palm-recognition-6fd76.firebaseio.com",
+    "project_id": "palm-recognition-6fd76",
+    "storage_bucket": "palm-recognition-6fd76.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:377568416268:android:5efe8bd2f8345ce2eb5429",
+        "android_client_info": {
+          "package_name": "com.palm.recognition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "377568416268-amrlno86d492k6f1jlud82okf6dquavm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPyjCbF2wbG5IckEH_XFd4qh_ErbXS0pU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "377568416268-amrlno86d492k6f1jlud82okf6dquavm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

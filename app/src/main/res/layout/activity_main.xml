@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/image_url_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Image URL"
+        android:imeOptions="actionDone"
+        android:inputType="textUri"
+        tools:ignore="Autofill" />
+
+    <ImageView
+        android:id="@+id/image_holder"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/image_url_field"
+        android:layout_marginTop="10dp"
+        android:scaleType="centerInside"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:onClick="recognizeText"
+            android:text="Text" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:onClick="detectFaces"
+            android:text="Faces" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.33"
+            android:onClick="generateLabels"
+            android:text="Labels" />
+    </LinearLayout>
+</RelativeLayout>
