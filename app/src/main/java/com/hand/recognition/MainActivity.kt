@@ -1,5 +1,6 @@
 package com.hand.recognition
 
+import android.annotation.SuppressLint
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.View
@@ -13,15 +14,17 @@ import org.jetbrains.anko.alert
 
 class MainActivity : AppCompatActivity() {
 
+    private val variants = arrayOf("hand", "finger")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        image_url_field.setOnEditorActionListener { _, action, _ ->
+        etImageUrl.setOnEditorActionListener { _, action, _ ->
             if (action == EditorInfo.IME_ACTION_DONE) {
                 Picasso.with(applicationContext)
-                    .load(image_url_field.text.toString())
-                    .into(image_holder)
+                    .load(etImageUrl.text.toString())
+                    .into(ivHolder)
 
                 return@setOnEditorActionListener true
             }
@@ -30,36 +33,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun recognizeText(v: View) {
-        val textImage = FirebaseVisionImage.fromBitmap(
-            (image_holder.drawable as BitmapDrawable).bitmap
+    @SuppressLint("DefaultLocale")
+    fun generateLabels(v: View) {
+        val image = FirebaseVisionImage.fromBitmap(
+            (ivHolder.drawable as BitmapDrawable).bitmap
         )
 
-        val detector = FirebaseVision.getInstance().cloudTextRecognizer
+        val detector = FirebaseVision.getInstance().cloudImageLabeler
 
         detector
-            .processImage(textImage)
+            .processImage(image)
             .addOnCompleteListener { task ->
-                val result = StringBuilder()
-
-                task.result?.textBlocks?.forEach {
-                    result.append(it.text)
-                    result.append("\n")
-                }
+                val isPalm = task.result
+                    ?.asSequence()
+                    ?.map { it.confidence to it.text.toLowerCase() }
+                    ?.filter { variants.contains(it.second) }
+                    ?.filter { it.first >= 0.8 }
+                    ?.any()
 
                 runOnUiThread {
-                    alert(result.toString(), "Text").show()
+                    alert(isPalm.toString(), "Is it palm?").show()
                 }
 
                 detector.close()
             }
-    }
-
-    fun detectFaces(v: View) {
-        // To do
-    }
-
-    fun generateLabels(v: View) {
-        // To do
     }
 }
