@@ -39,16 +39,16 @@ class MainActivity : AppCompatActivity() {
             (ivHolder.drawable as BitmapDrawable).bitmap
         )
 
-        val detector = FirebaseVision.getInstance().cloudImageLabeler
+        val detector = FirebaseVision.getInstance().onDeviceImageLabeler
 
         detector
             .processImage(image)
             .addOnCompleteListener { task ->
                 val isPalm = task.result
                     ?.asSequence()
-                    ?.map { it.confidence to it.text.toLowerCase() }
-                    ?.filter { variants.contains(it.second) }
-                    ?.filter { it.first >= 0.8 }
+                    ?.filter { it.confidence >= 0.8 }
+                    ?.map { it.text.toLowerCase() }
+                    ?.filter { variants.contains(it) }
                     ?.any()
 
                 runOnUiThread {
